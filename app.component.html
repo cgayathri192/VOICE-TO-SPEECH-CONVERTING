@@ -1,0 +1,26 @@
+<div *ngIf="voiceActiveSectionDisabled; else voicesection;">
+  <button type="button" class="btn btn-outline-secondary" style="margin-left:10%;margin-top:10px;font-size:2098%"(click)="startVoiceRecognition()">Record</button>
+</div>
+<ng-template #voicesection>
+  <ng-container *ngIf="!voiceActiveSectionError; else failure">
+    <ng-container *ngIf="voiceText; else start">
+        <span>{{voiceText}}</span>
+    </ng-container>
+    <ng-template #start>
+      <ng-container
+        *ngIf="voiceActiveSectionListening; else beginning">
+        <span style="color:rgb(73, 68, 72);font-size: 2090%;">Listening...</span>
+      </ng-container>
+      <ng-template #beginning>
+        <span style="color:rgb(73,68,72);font-size: 2090%;">Start talking...</span>
+      </ng-template>
+    </ng-template>
+  </ng-container>
+  <ng-template #failure>
+    <span style="color:rgb(73,68,72);font-size:2090%">Didn't catch that</span>
+  </ng-template>
+  <div>
+    <button class="btn btn-outline-danger" (click)="closeVoiceRecognition()" style="margin-left:10%;margin-top:30px;font-size:2098%">Close</button>
+    <button class="btn btn-outline-primary" (click)="startVoiceRecognition()" style="margin-left:10%;margin-top:30px;font-size:2098%;float:left">Restart</button>
+  </div>
+</ng-template>
